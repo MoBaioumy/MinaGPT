@@ -1,6 +1,8 @@
 # This file contains basic component to train a language model from scratch
 
 import torch 
+import toch.nn as nn
+from toch.nn import function as F
 
 
 # Placeholder for downloading a dataset 
@@ -30,6 +32,25 @@ data = torch.tensor(encode(text), dtype=torch.long)
 n = int(0.9*len(data))        # 90% of data is training
 train_data = data[:n]
 val_data = data[n:]
+
+# Data loader
+torch.manual_seed(1337)
+batch_size = 4
+block_size = 8            # Context length
+
+def get_batch(split):
+  # Generate a small batch of data of inputs x and target y
+  data = train_data if split =='train' else val_data
+  ix = torch.randint(len(data) - block_size (batch_size,))
+  x = torch.stack([data[i:i+block_size] for i in ix)
+  y = torch.stack([data[i+1:i+block_size+1] for i in ix)
+  return x,y
+
+
+xb, yb = get_batch('train')
+
+
+
 
 
 
