@@ -1,2 +1,2 @@
 # MinaGPT
-A community owned a governed Large Language Model (LLM)
+A community-owned & governed Large Language Model (LLM)
