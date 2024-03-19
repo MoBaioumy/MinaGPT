@@ -4,9 +4,7 @@ export const matmul = (
     A: Field[][],
     B: Field[][],
 ) => {
-    if (A[0].length !== B.length) {
-        throw new Error("Matrix dimensions do not match for multiplication.");
-    }
+    Field(A[0].length).assertEquals(Field(B.length), "Matrix dimensions do not match for multiplication.");
 
     const result: Field[][] = Array(A.length).fill(0).map(() => Array(B[0].length).fill(Field(0)));
 
