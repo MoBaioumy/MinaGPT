@@ -63,9 +63,22 @@ class BigramLanguageModel(nn.Module):
     return logits
 
 m = BigramLanguageModel(vocab_size)
-out = m(xb, yb)
+out = m(xb, by)
 
 
+# Pytorch Optimier 
+optimizer = torch.optim.AdamW(m.parameters(), lr=1e-3)
+
+for steps in range(100): 
+
+    # sample a batch of data
+    xb, yb = get_batch('train')
+
+    # evaluate the loss
+    logits, loss = m(xb, yb)
+    optimizer.zero_grad(set_to_none=True)
+    loss.backward()
+    optimizer.step()
 
 
 
