@@ -34,3 +34,16 @@ plt.plot(x, np.exp(-(x - true_mu)**2 / (2 * sigma_squared)) / np.sqrt(2 * np.pi 
 plt.plot(x, np.exp(-(x - mu_q)**2 / (2 * sigma_q_squared)) / np.sqrt(2 * np.pi * sigma_q_squared), label='Approximation')
 plt.legend()
 plt.show()
+
+# Visualizing the true distribution and our approximation
+plt.hist(data, bins=30, alpha=0.5, label='Data')
+x = np.linspace(min(data), max(data), 100)
+plt.plot(x, np.exp(-(x - true_mu)**2 / (2 * sigma_squared)) / np.sqrt(2 * np.pi * sigma_squared), label='True Distribution')
+plt.plot(x, np.exp(-(x - mu_q)**2 / (2 * sigma_q_squared)) / np.sqrt(2 * np.pi * sigma_q_squared), label='Approximation')
+plt.legend()
+
+# Save the figure before showing it
+plt.savefig('result.png')
+
+plt.show()
+
