@@ -72,3 +72,15 @@ for steps in range(100):
     optimizer.zero_grad()
     loss.backward()
     optimizer.step()
+
+
+def evaluate(model, data_loader):
+    model.eval()
+    total_loss = 0
+    with torch.no_grad():
+        for xb, yb in data_loader:
+            logits = model(xb)
+            loss = loss_fn(logits.view(-1, vocab_size), yb.view(-1))
+            total_loss += loss.item()
+    return total_loss / len(data_loader)
+
