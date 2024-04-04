@@ -84,3 +84,13 @@ def evaluate(model, data_loader):
             total_loss += loss.item()
     return total_loss / len(data_loader)
 
+def generate_text(model, seed_text, next_words=100):
+    model.eval()
+    for _ in range(next_words):
+        encoded_seed = torch.tensor(encode(seed_text[-block_size:]), dtype=torch.long).unsqueeze(0)
+        with torch.no_grad():
+            logits = model(encoded_seed)
+        last_word_logits = logits[0, -1]
+        predicted_word = torch.multinomial(F.softmax(last_word_logits, dim=0), 1)
+        seed_text += decode([predicted_word.item()])
+    return seed_text
